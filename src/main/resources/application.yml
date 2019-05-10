@@ -1,0 +1,19 @@
+
+
+spring:
+    application:
+        name: huahua-qa #\u6307\u5B9A\u670D\u52A1\u540D
+    datasource:
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/pinyougoudb?useUnicode=true&amp;characterEncoding=UTF8&&useSSL=false
+        username: root
+        password: root
+    jpa:
+
+        database: MySQL
+        show-sql: true
+    freemarker:
+      charset: UTF-8
+      suffix: ftl
+      prefix: /templates/
+pagedir: F:\\111\\
