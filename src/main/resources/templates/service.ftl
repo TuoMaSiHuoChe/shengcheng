@@ -1,3 +1,6 @@
+
+
+package ${page}.service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -20,22 +23,26 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 
+
+import ${page}dao.*;
+import ${page}pojo.*;
+import ${page}entity.*;
+
+
 @Service
 @Transactional
-public class ${changeTableName}Service {
+public class ${tableClass.changeTableName}Service {
 
 	@Autowired
-	private ${changeTableName}Dao ${changeTableName}Dao;
-	
-	@Autowired
-	private IdWorker idWorker;
+	private ${tableClass.changeTableName}Dao ${tableClass.changeTableName}Dao;
+
 
 	/**
 	 * 查询全部列表
 	 * @return
 	 */
-	public List<${changeTableName}> findAll() {
-		return ${changeTableName}Dao.findAll();
+	public List<${tableClass.changeTableName}> findAll() {
+		return ${tableClass.changeTableName}Dao.findAll();
 	}
 
 	
@@ -46,10 +53,10 @@ public class ${changeTableName}Service {
 	 * @param size
 	 * @return
 	 */
-	public Page<${changeTableName}> findSearch(Map whereMap, int page, int size) {
-		Specification<${changeTableName}> specification = createSpecification(whereMap);
+	public Page<${tableClass.changeTableName}> findSearch(Map whereMap, int page, int size) {
+		Specification<${tableClass.changeTableName}> specification = createSpecification(whereMap);
 		PageRequest pageRequest =  PageRequest.of(page-1, size);
-		return ${changeTableName}Dao.findAll(specification, pageRequest);
+		return ${tableClass.changeTableName}Dao.findAll(specification, pageRequest);
 	}
 
 	
@@ -58,9 +65,9 @@ public class ${changeTableName}Service {
 	 * @param whereMap
 	 * @return
 	 */
-	public List<${changeTableName}> findSearch(Map whereMap) {
-		Specification<${changeTableName}> specification = createSpecification(whereMap);
-		return ${changeTableName}Dao.findAll(specification);
+	public List<${tableClass.changeTableName}> findSearch(Map whereMap) {
+		Specification<${tableClass.changeTableName}> specification = createSpecification(whereMap);
+		return ${tableClass.changeTableName}Dao.findAll(specification);
 	}
 
 	/**
@@ -68,25 +75,25 @@ public class ${changeTableName}Service {
 	 * @param id
 	 * @return
 	 */
-	public ${changeTableName} findById(String id) {
-		return ${changeTableName}Dao.findOneById(id);
+	public ${tableClass.changeTableName} findById(String id) {
+		return ${tableClass.changeTableName}Dao.findOneById(id);
 	}
 
 	/**
 	 * 增加
-	 * @param ${changeTableName}
+	 * @param ${tableClass.changeTableName}
 	 */
-	public void add(${changeTableName} ${changeTableName}) {
+	public void add(${tableClass.changeTableName} ${tableClass.changeTableName}) {
 
-		${changeTableName}Dao.save(${changeTableName});
+		${tableClass.changeTableName}Dao.save(${tableClass.changeTableName});
 	}
 
 	/**
 	 * 修改
-	 * @param ${changeTableName}
+	 * @param ${tableClass.changeTableName}
 	 */
-	public void update(${changeTableName} ${changeTableName}) {
-		${changeTableName}Dao.save(${changeTableName});
+	public void update(${tableClass.changeTableName} ${tableClass.changeTableName}) {
+		${tableClass.changeTableName}Dao.save(${tableClass.changeTableName});
 	}
 
 	/**
@@ -94,19 +101,19 @@ public class ${changeTableName}Service {
 	 * @param id
 	 */
 	public void deleteById(String id) {
-		${changeTableName}Dao.deleteById(id);
+		${tableClass.changeTableName}Dao.deleteById(id);
 	}
 /**
 	 * 动态条件构建
 	 * @param searchMap
 	 * @return
 	 */
-	private Specification<${changeTableName}> createSpecification(Map searchMap) {
+	private Specification<${tableClass.changeTableName}> createSpecification(Map searchMap) {
 
-		return new Specification<${changeTableName}>() {
+		return new Specification<${tableClass.changeTableName}>() {
 
 			@Override
-			public Predicate toPredicate(Root<${changeTableName}> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+			public Predicate toPredicate(Root<${tableClass.changeTableName}> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				List<Predicate> predicateList = new ArrayList<Predicate>();
 				 <#list columnClasses as x>
 

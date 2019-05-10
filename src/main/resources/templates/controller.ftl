@@ -1,4 +1,5 @@
 
+package ${page}controller;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import ${page}service.*;
 
+import ${page}dao.*;
+import ${page}pojo.*;
+import ${page}entity.*;
 
 
 /**
@@ -20,11 +25,11 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @CrossOrigin
-@RequestMapping("/${changeTableName}")
-public class ${changeTableName}Controller {
+@RequestMapping("/${tableClass.changeTableName}")
+public class ${tableClass.changeTableName}Controller {
 
 	@Autowired
-	private ${changeTableName}Service ${changeTableName}Service;
+	private ${tableClass.changeTableName}Service ${tableClass.changeTableName}Service;
 	
 	
 	/**
@@ -33,7 +38,7 @@ public class ${changeTableName}Controller {
 	 */
 	@RequestMapping(method= RequestMethod.GET)
 	public Result findAll(){
-		return new Result(true,StatusCode.OK,"查询成功",${changeTableName}Service.findAll());
+		return new Result(true,StatusCode.OK,"查询成功",${tableClass.changeTableName}Service.findAll());
 	}
 	
 	/**
@@ -43,7 +48,7 @@ public class ${changeTableName}Controller {
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.GET)
 	public Result findById(@PathVariable String id){
-		return new Result(true,StatusCode.OK,"查询成功",${changeTableName}Service.findById(id));
+		return new Result(true,StatusCode.OK,"查询成功",${tableClass.changeTableName}Service.findById(id));
 	}
 
 
@@ -56,8 +61,8 @@ public class ${changeTableName}Controller {
 	 */
 	@RequestMapping(value="/search/{page}/{size}",method=RequestMethod.POST)
 	public Result findSearch(@RequestBody Map searchMap , @PathVariable int page, @PathVariable int size){
-		Page<${changeTableName}> pageList = ${changeTableName}Service.findSearch(searchMap, page, size);
-		return  new Result(true,StatusCode.OK,"查询成功",  new PageResult<${changeTableName}>(pageList.getTotalElements(), pageList.getContent()) );
+		Page<${tableClass.changeTableName}> pageList = ${tableClass.changeTableName}Service.findSearch(searchMap, page, size);
+		return  new Result(true,StatusCode.OK,"查询成功",  new PageResult<${tableClass.changeTableName}>(pageList.getTotalElements(), pageList.getContent()) );
 	}
 
 	/**
@@ -67,27 +72,27 @@ public class ${changeTableName}Controller {
      */
     @RequestMapping(value="/search",method = RequestMethod.POST)
     public Result findSearch( @RequestBody Map searchMap){
-        return new Result(true,StatusCode.OK,"查询成功",${changeTableName}Service.findSearch(searchMap));
+        return new Result(true,StatusCode.OK,"查询成功",${tableClass.changeTableName}Service.findSearch(searchMap));
     }
 	
 	/**
 	 * 增加
-	 * @param ${changeTableName}
+	 * @param ${tableClass.changeTableName}
 	 */
 	@RequestMapping(method=RequestMethod.POST)
-	public Result add(@RequestBody ${changeTableName} ${changeTableName}  ){
-		${changeTableName}Service.add(${changeTableName});
+	public Result add(@RequestBody ${tableClass.changeTableName} ${tableClass.changeTableName}  ){
+		${tableClass.changeTableName}Service.add(${tableClass.changeTableName});
 		return new Result(true,StatusCode.OK,"增加成功");
 	}
 	
 	/**
 	 * 修改
-	 * @param ${changeTableName}
+	 * @param ${tableClass.changeTableName}
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.PUT)
-	public Result update(@RequestBody ${changeTableName} ${changeTableName}, @PathVariable String id ){
-		${changeTableName}.setId(id);
-		${changeTableName}Service.update(${changeTableName});		
+	public Result update(@RequestBody ${tableClass.changeTableName} ${tableClass.changeTableName}, @PathVariable String id ){
+		${tableClass.changeTableName}.setId(id);
+		${tableClass.changeTableName}Service.update(${tableClass.changeTableName});		
 		return new Result(true,StatusCode.OK,"修改成功");
 	}
 	
@@ -97,7 +102,7 @@ public class ${changeTableName}Controller {
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.DELETE)
 	public Result delete(@PathVariable String id ){
-		${changeTableName}Service.deleteById(id);
+		${tableClass.changeTableName}Service.deleteById(id);
 		return new Result(true,StatusCode.OK,"删除成功");
 	}
 	

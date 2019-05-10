@@ -1,12 +1,20 @@
+package ${page}pojo;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.io.Serializable;
 import lombok.Data;
-import org.hibernate.annotations.Table;
+import java.util.Date;
 
+
+
+import ${page}entity.*;
 @Data
-@Table(name="${tbaleName}")
-public class ${changeTableName} implements Serializable {
+@Table(name="${tableClass.tbaleName}")
+@Entity
+public class ${tableClass.changeTableName} implements Serializable {
 
-    <#list columnClasses as x>
+    <#list tableClass.columnClasses as x>
 
     /**
     *  ${x.columnComment}
