@@ -30,6 +30,9 @@ public class Connectio {
 
     private static final String SQL = "SELECT * FROM ";
 
+    /**
+     *  静态加载
+     */
     static {
         try {
             Class.forName(DRIVER);
@@ -48,7 +51,7 @@ public class Connectio {
         try {
             conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (SQLException e) {
-            LOGGER.error("get connection failure", e);
+           e.printStackTrace();
         }
         return conn;
     }
@@ -73,9 +76,13 @@ public class Connectio {
      */
 
     public static Map<String, List> getTableNames() throws SQLException {
+        //去掉下划线的表名
         List<String> newTableNames = new ArrayList<>();
+        //拥有人鱼线的PDD
         List<String> oldTableNames = new ArrayList<>();
-        Map<String, List> objectObjectHashMap = new HashMap<>();
+        //用什么装这两个数据？  map
+        Map<String, List> objectObjectHashMap = new HashMap<>(16);
+        //链接
         Connection conn = getConnection();
         DatabaseMetaData metaData = conn.getMetaData();
         ResultSet rs = null;
@@ -87,8 +94,11 @@ public class Connectio {
             rs = db.getTables(null, null, null, new String[]{"TABLE"});
             System.out.println(rs);
             while (rs.next()) {
+                //获得表名并转化驼峰得到s
                 String s = underlineToCamel(rs.getString(3));
+                //追加
                 newTableNames.add(s);
+                //追加
                 oldTableNames.add(rs.getString(3));
                 System.out.println("数据库所有表显示：");
                 System.out.println(s);
@@ -117,6 +127,7 @@ public class Connectio {
      * @return
      */
     public static  Map<String, List> getColumnNames(String tableName) {
+        //情况和上面一样  字段也有驼峰和下划线   所以得区分
         List<String> newColumnNames = new ArrayList<>();
         List<String> oldColumnNames = new ArrayList<>();
         Map<String, List> ColumnNames = new HashMap<>();
@@ -132,6 +143,7 @@ public class Connectio {
             int size = rsmd.getColumnCount();
             for (int i = 0; i < size; i++) {
                 String columnName = rsmd.getColumnName(i + 1);
+
                 String s = underlineToCamel(columnName);
                 oldColumnNames.add( rsmd.getColumnName(i + 1));
                 newColumnNames.add(s);
@@ -160,6 +172,8 @@ public class Connectio {
      * @return
      */
     public static List<String> getColumnTypes(String tableName) {
+
+        //字段类型不用考虑驼峰问题
         List<String> columnTypes = new ArrayList<>();
         //与数据库的连接
         Connection conn = getConnection();
@@ -172,6 +186,7 @@ public class Connectio {
             //表列数
             int size = rsmd.getColumnCount();
             for (int i = 0; i < size; i++) {
+                //转化为java字段  varchar 转化为String
                 String s = dbTypeChangeJavaType(rsmd.getColumnTypeName(i + 1));
                 columnTypes.add(s);
             }
@@ -225,7 +240,8 @@ public class Connectio {
         Connection conn = getConnection();
         PreparedStatement pStemt = null;
         String tableSql = SQL + tableName;
-        List<String> columnComments = new ArrayList<>();//列名注释集合
+        //列名注释集合
+        List<String> columnComments = new ArrayList<>();
         ResultSet rs = null;
         try {
             pStemt = conn.prepareStatement(tableSql);

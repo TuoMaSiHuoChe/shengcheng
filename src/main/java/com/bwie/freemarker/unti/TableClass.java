@@ -11,12 +11,16 @@ import java.util.List;
  * @Description:
  */
 @Data
-
+/**
+ * 表
+ */
 public class TableClass {
     /** 数据库字段名称 **/
     private String tbaleName;
     /** 数据库字段首字母小写且去掉下划线字符串 **/
     private String changeTableName;
-
+    /**
+     * 每个表里面的字段
+     */
     private List<ColumnClass> columnClasses;
 }

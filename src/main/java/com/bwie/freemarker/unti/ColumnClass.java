@@ -7,6 +7,9 @@ import lombok.Data;
  * Created by Ay on 2017/5/3.
  */
 @Data
+/**
+ * 列
+ */
 public class ColumnClass {
 
     /** 数据库字段名称 **/
