@@ -211,7 +211,7 @@ public class Connectio {
                 sb.append(c);
             }
         }
-        return sb.toString();
+        return sb.toString().substring(2);
     }
 
     /**

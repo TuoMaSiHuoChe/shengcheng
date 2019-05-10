@@ -39,11 +39,12 @@ public class FreemarkerApplicationTests {
 
         List<TableClass> tableClasses = connectionMysql(newTableNames, oldTableNames);
         System.out.println(tableClasses);
-
+        getExction();
         for (TableClass tableClass : tableClasses) {
-           /* getPojo(tableClass);
-            getDao(tableClass);*/
+            getPojo(tableClass);
+            getDao(tableClass);
            getService(tableClass);
+            getController(tableClass);
         }
     }
 
@@ -74,7 +75,24 @@ public class FreemarkerApplicationTests {
         out.close();
         return true;
     }
-
+    //生产Controller层
+    private boolean getController(TableClass tableClass) throws IOException, TemplateException {
+        Configuration configuration = freeMarkerConfigurer.getConfiguration();
+        Template template = configuration.getTemplate("controller.ftl");
+        Writer out=new FileWriter(pagedir+tableClass.getChangeTableName()+"Controller.java");
+        template.process(tableClass, out);
+        out.close();
+        return true;
+    }
+    //生成异常爆出
+    private boolean getExction() throws IOException, TemplateException {
+        Configuration configuration = freeMarkerConfigurer.getConfiguration();
+        Template template = configuration.getTemplate("ection.ftl");
+        Writer out=new FileWriter(pagedir+"BaseExceptionHandler.java");
+        template.process(null,out);
+        out.close();
+        return true;
+    }
     //设置整个数据库所有的表
     private static List<TableClass> connectionMysql(List<String> newTableNames, List<String> oldTableNames){
         List<TableClass> objects = new ArrayList<>();
