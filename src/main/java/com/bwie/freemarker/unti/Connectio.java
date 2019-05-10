@@ -32,7 +32,7 @@ public class Connectio {
 
     static {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(DRIVER);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
